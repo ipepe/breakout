@@ -5,6 +5,7 @@ import {World} from "../world.js";
 import {control_ball} from "../components/com_control_ball.js";
 import {move} from "../components/com_move.js"
 import {Vec2} from "../math";
+import {collide} from "../components/com_collide.js";
 
 export function scene_main(game: Game) {
     game.World = new World();
@@ -18,7 +19,8 @@ export function scene_main(game: Game) {
             game.Add({
                 Translation: [game.ViewportWidth * i / 6, game.ViewportHeight * j / 12 ],
                 Using: [
-                    draw_rect(worldWidth/7, worldHeight/20)
+                    draw_rect(worldWidth/7, worldHeight/20),
+                    collide([worldWidth/7, worldHeight/20])
                 ],
             });
         }
@@ -35,22 +37,26 @@ export function scene_main(game: Game) {
                 0, game.ViewportWidth,
                 0, game.ViewportHeight
             ),
-            draw_rect(worldWidth/3, worldHeight/15)
+            draw_rect(worldWidth/3, worldHeight/15),
+            collide([worldWidth/3, worldHeight/15])
         ],
     });
 
     // BALL
-    game.Add({
-        Translation: [game.ViewportWidth / 2, game.ViewportHeight * 6/8],
-        Using: [
-            control_ball(),
-            move(
-                <Vec2>[Math.random(), Math.random()],
-                500,
-                0, game.ViewportWidth,
-                0, game.ViewportHeight
-            ),
-            draw_rect(worldHeight/15, worldHeight/15)
-        ],
-    });
+    for(var i=0; i<3; i++){
+        game.Add({
+            Translation: [game.ViewportWidth / 2, game.ViewportHeight * 6 / 8],
+            Using: [
+                control_ball(),
+                move(
+                    <Vec2>[(Math.random()*2)-1, (Math.random()*2)-1],
+                    500,
+                    0, game.ViewportWidth,
+                    0, game.ViewportHeight
+                ),
+                draw_rect(worldHeight/15, worldHeight/15),
+                collide([worldHeight/15, worldHeight/15])
+            ],
+        });
+    }
 }
