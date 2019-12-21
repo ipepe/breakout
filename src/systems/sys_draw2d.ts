@@ -27,6 +27,6 @@ export function sys_draw2d(game: Game, delta: number) {
 
 function draw_rect(game: Game, entity: Entity) {
     let draw = game.World.Draw[entity];
-    game.Context2D.fillStyle = draw.Color;
+    game.Context2D.fillStyle = 'white';
     game.Context2D.fillRect(-draw.SizeX / 2, -draw.SizeY / 2, draw.SizeX, draw.SizeY);
 }
