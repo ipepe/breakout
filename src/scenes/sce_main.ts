@@ -45,8 +45,8 @@ export function scene_main(game: Game) {
         Using: [
             control_ball(),
             move(
-                <Vec2>[0,1],
-                300,
+                <Vec2>[Math.random(), Math.random()],
+                500,
                 0, game.ViewportWidth,
                 0, game.ViewportHeight
             ),
