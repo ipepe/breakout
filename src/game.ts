@@ -8,6 +8,7 @@ import {sys_framerate} from "./systems/sys_framerate.js";
 import {sys_performance} from "./systems/sys_performance.js";
 import {sys_transform2d} from "./systems/sys_transform2d.js";
 import {World} from "./world.js";
+import {sys_control_ball} from "./systems/sys_control_ball.js";
 
 const MAX_ENTITIES = 10000;
 
@@ -69,6 +70,7 @@ export class Game {
     Update(delta: number) {
         let now = performance.now();
 
+        sys_control_ball(this, delta);
         sys_control_paddle(this, delta);
         sys_transform2d(this, delta);
         sys_collide(this, delta);
