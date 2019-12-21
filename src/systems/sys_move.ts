@@ -1,9 +1,8 @@
 import {Has} from "../components/com_index.js";
 import {Entity, Game} from "../game.js";
-import {Vec2} from "../math/index.js";
 import {normalize} from "../math/vec2.js";
 
-const QUERY = Has.Transform2D | Has.MoveDirection;
+const QUERY = Has.Transform2D | Has.MoveDirection | Has.Draw;
 
 export function sys_move(game: Game, delta: number) {
     for (let i = 0; i < game.World.Mask.length; i++) {
@@ -22,18 +21,18 @@ function update(game: Game, entity: Entity, delta: number) {
     transform.Translation[0] += direction[0] * speed * delta;
     transform.Translation[1] += direction[1] * speed * delta;
 
-    if(transform.Translation[0] < game.World.Move[entity].MinimumXPosition){
-        transform.Translation[0] = game.World.Move[entity].MinimumXPosition
+    if(transform.Translation[0] < game.World.Move[entity].MinimumXPosition + game.World.Draw[entity].SizeX/2){
+        transform.Translation[0] = game.World.Move[entity].MinimumXPosition + game.World.Draw[entity].SizeX/2
     }
-    if(transform.Translation[0] > game.World.Move[entity].MaximumXPosition){
-        transform.Translation[0] = game.World.Move[entity].MaximumXPosition
+    if(transform.Translation[0] > game.World.Move[entity].MaximumXPosition - game.World.Draw[entity].SizeX/2){
+        transform.Translation[0] = game.World.Move[entity].MaximumXPosition - game.World.Draw[entity].SizeX/2
     }
 
-    if(transform.Translation[1] < game.World.Move[entity].MinimumYPosition){
-        transform.Translation[1] = game.World.Move[entity].MinimumYPosition
+    if(transform.Translation[1] < game.World.Move[entity].MinimumYPosition + game.World.Draw[entity].SizeY/2){
+        transform.Translation[1] = game.World.Move[entity].MinimumYPosition + game.World.Draw[entity].SizeY/2
     }
-    if(transform.Translation[1] > game.World.Move[entity].MaximumYPosition){
-        transform.Translation[1] = game.World.Move[entity].MaximumYPosition
+    if(transform.Translation[1] > game.World.Move[entity].MaximumYPosition - game.World.Draw[entity].SizeY/2){
+        transform.Translation[1] = game.World.Move[entity].MaximumYPosition - game.World.Draw[entity].SizeY/2
     }
 
     transform.Dirty = true;
