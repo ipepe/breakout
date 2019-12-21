@@ -5,7 +5,7 @@ const QUERY = Has.Transform2D | Has.Draw;
 
 export function sys_draw2d(game: Game, delta: number) {
     game.Context2D.resetTransform();
-    game.Context2D.fillStyle = game.ClearColor;
+    game.Context2D.fillStyle = 'black';
     game.Context2D.fillRect(0, 0, game.ViewportWidth, game.ViewportHeight);
 
     for (let i = 0; i < game.World.Mask.length; i++) {
@@ -27,6 +27,6 @@ export function sys_draw2d(game: Game, delta: number) {
 
 function draw_rect(game: Game, entity: Entity) {
     let draw = game.World.Draw[entity];
-    game.Context2D.fillStyle = "red";
-    game.Context2D.fillRect(-draw.Size / 2, -draw.Size / 2, draw.Size, draw.Size);
+    game.Context2D.fillStyle = draw.Color;
+    game.Context2D.fillRect(-draw.SizeX / 2, -draw.SizeY / 2, draw.SizeX, draw.SizeY);
 }
